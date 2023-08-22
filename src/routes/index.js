@@ -13,7 +13,7 @@ const router = Router();
 
 
 router.use("/user", userRouter);
-router.use("/dog", dogRouter);
+// router.use("/dog", dogRouter);
 // router.use("/walk", walkRouter);
 // router.use("/review", reviewRouter);
 router.use("/location", locationRouter);
