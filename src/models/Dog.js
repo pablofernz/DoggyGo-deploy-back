@@ -16,8 +16,12 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        race: {
-            type: DataTypes.ENUM('SMALL', 'MEDIUM', 'LARGE'),
+        size: {
+            type: DataTypes.ENUM('SMALL', 'MEDIUM', 'LARGE', 'GIANT'),
+            allowNull: false
+        },
+        breed: {
+            type: DataTypes.STRING,
             allowNull: false
         },
         age: {
