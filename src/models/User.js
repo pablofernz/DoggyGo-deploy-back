@@ -4,69 +4,69 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('User', {
-    id:{
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    name:{
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image:{
+    image: {
       type: DataTypes.STRING,
     },
-    password:{
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email:{
+    email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
-    birthdate:{
+    birthdate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    },    
-    country:{
+    },
+    country: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    state:{
+    state: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    city:{
+    city: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address:{
+    address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone:{
+    phone: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
-    description:{
+    description: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
-    suscription:{
-      type: DataTypes.BOOLEAN,
-    },    
-    status:{
+    suscription: {
       type: DataTypes.BOOLEAN,
     },
-    rol:{
+    status: {
+      type: DataTypes.BOOLEAN,
+    },
+    rol: {
       type: DataTypes.ENUM('Walker', 'Client'),
       allowNull: false,
     }
-  }, 
-  { 
-    timestamps: false
-  });
+  },
+    {
+      timestamps: false
+    });
 };

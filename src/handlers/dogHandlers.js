@@ -5,7 +5,7 @@ const addDog = async (req, res) => {
     const { name, image, size, age, recomendations, breed } = req.body
 
     try {
-        if (name && image && size && age && recomendations && breed) {
+        if (name && size && age && breed) {
             const newDog = await createDog(name, size, image, age, recomendations, breed)
             return res.status(200).json(newDog)
         } else {

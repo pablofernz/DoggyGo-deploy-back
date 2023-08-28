@@ -1,4 +1,4 @@
-const { getCountriesController, getStatesController, getCitiesController} = require('../controllers/locationControllers')
+// const { getCountriesController, getStatesController, getCitiesController} = require('../controllers/locationControllers')
 
 //traer paises
 const getCountriesHandler = async (req, res) => {
@@ -33,9 +33,8 @@ const getCitiesHandler = async (req, res) => {
 }
 
 
-
-module.exports = {
-    getCountriesHandler,
-    getStatesHandler,
-    getCitiesHandler,
-}
+// module.exports = {
+//     getCountriesHandler,
+//     getStatesHandler,
+//     getCitiesHandler,
+// }

@@ -12,9 +12,9 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        image:{
+        image: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         size: {
             type: DataTypes.ENUM('SMALL', 'MEDIUM', 'LARGE', 'GIANT'),
@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
         },
         recomendations: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true
         }
     }, {
         timestamps: false
