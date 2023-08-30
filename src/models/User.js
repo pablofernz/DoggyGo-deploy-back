@@ -55,11 +55,17 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    suscription: {
+    schedule: {
+      type: DataTypes.ENUM('6am-11am', '11am-3pm', "3pm-10pm"),
+    },
+    cpr: {
       type: DataTypes.BOOLEAN,
     },
     status: {
       type: DataTypes.BOOLEAN,
+    },
+    size: {
+      type: DataTypes.ENUM('SMALL', 'MEDIUM', "LARGE", "GIANT"),
     },
     rol: {
       type: DataTypes.ENUM('Walker', 'Client'),

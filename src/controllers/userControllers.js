@@ -31,8 +31,10 @@ const getUsersController = async () => {
             address: user.address,
             phone: user.phone,
             status: user.status,
-            suscription: user.suscription,
-            rol: user.rol
+            rol: user.rol,
+            schedule: user.schedule,
+            cpr: user.schedule,
+            size: user.rol
         }
     });
 
@@ -73,8 +75,10 @@ const getUsersByNameController = async (name) => {
             address: user.address,
             phone: user.phone,
             status: user.status,
-            suscription: user.suscription,
-            rol: user.rol
+            rol: user.rol,
+            schedule: user.schedule,
+            cpr: user.schedule,
+            size: user.rol
         }
     });
 
@@ -133,7 +137,7 @@ const getUserByIdController = async (id) => {
 
 const createUserController = async (userData) => {
     console.log(userData)
-    const { name, email, password, birthdate, address, phone, description, country, state, city, rol } = userData;
+    const { name, email, password, birthdate, address, description, phone, country, state, city, rol } = userData;
 
 
     if (!name || !email || !password || !birthdate || !address || !phone || !country || !state || !city || !rol) {
@@ -152,25 +156,29 @@ const createUserController = async (userData) => {
             phone: phone
         }
     });
-    if (phoneCheck) throw new Error('This phone number is already registered!');
+    if (phoneCheck) throw new Error('This phone number is already registered!'); 
 
-    const hashedPassword = await bcrypt.hash(password, 10);  // 10 number of salt rounds
+    if( password !== 'null'){ 
+        const hashedPassword = await bcrypt.hash(password, 10);  // 10 number of salt rounds
 
-    let newUser = await User.create({
-        ...userData,
-        password: hashedPassword,
-    });
 
-    if (newUser) {
-        let token = jwt.sign({ id: newUser.id }, JWT_SECRET_KEY, {
-            expiresIn: 1 * 24 * 60 * 60 * 1000,
+        let newUser = await User.create({
+            ...userData,
+            password: hashedPassword,
         });
-        //send users details
-        return { newUser, token };
-    } else {
-        throw new Error('Details are not correct');
-    }
+    
+        if (newUser) {
+            let token = jwt.sign({ id: newUser.id }, JWT_SECRET_KEY, {
+              expiresIn: 1 * 24 * 60 * 60 * 1000,
+            });
+       
+            //send users details
+            return { newUser, token };
+          } else {
+            throw new Error('Details are not correct');
+          }
 
+    }
 }
 
 

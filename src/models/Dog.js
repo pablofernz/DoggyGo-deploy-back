@@ -20,17 +20,25 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM('SMALL', 'MEDIUM', 'LARGE', 'GIANT'),
             allowNull: false
         },
+        age: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        recomendations: {
+            type: DataTypes.STRING(150),
+            allowNull: true
+        },
         breed: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        age: {
-            type: DataTypes.INTEGER,
+        sex: {
+            type: DataTypes.ENUM("MACHO", "HEMBRA"),
             allowNull: false
         },
-        recomendations: {
-            type: DataTypes.STRING(50),
-            allowNull: true
+        castrated: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         timestamps: false
