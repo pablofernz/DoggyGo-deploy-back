@@ -2,7 +2,6 @@ let passport = require('passport')
 require("dotenv").config(); 
 const {User} = require('../models/User') 
 const { createUserController }= require('../controllers/userControllers') 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 // const bcrypt = require('bcrypt');
 
 
@@ -17,8 +16,8 @@ passport.deserializeUser((user, done) => {
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy ({ scope: ['profile', 'email'],
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3001/auth/google/create"
   }, 
  
