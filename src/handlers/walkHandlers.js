@@ -30,18 +30,30 @@ const getWalkByIdHandler = async (req, res) => {
 };
 
 const createWalkHandler = async (req, res) => {
-  const { startDate, state, duration, cost, fee, image, comment, emergency } =
-    req.body;
+  const {
+    startDate,
+    time,
+    state,
+    duration,
+    cost,
+    fee,
+    total,
+    image,
+    comment,
+    emergency,
+  } = req.body;
   try {
     // if (startDate || state || duration || cost || image || comment) {
     //   throw new Error("All fields are required");
     // }
     const newWalk = await createWalk({
       startDate,
+      time,
       state,
       duration,
       cost,
       fee,
+      total,
       image,
       comment,
       emergency,
@@ -54,15 +66,28 @@ const createWalkHandler = async (req, res) => {
 
 const editWalkHandler = async (req, res) => {
   const { id } = req.params;
-  const { startDate, state, duration, cost, image, comment, emergency } =
-    req.body;
+  const {
+    startDate,
+    time,
+    state,
+    duration,
+    cost,
+    fee,
+    total,
+    image,
+    comment,
+    emergency,
+  } = req.body;
   try {
     const walkEdited = await editWalk({
       id,
       startDate,
+      time,
       state,
       duration,
       cost,
+      fee,
+      total,
       image,
       comment,
       emergency,

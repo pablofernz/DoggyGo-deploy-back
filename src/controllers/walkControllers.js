@@ -2,20 +2,24 @@ const { Walk } = require("../db");
 
 const createWalk = async ({
   startDate,
+  time,
   state,
   duration,
   cost,
   fee,
+  total,
   image,
   comment,
   emergency,
 }) => {
   const newWalk = await Walk.create({
     startDate,
+    time,
     state,
     duration,
     cost,
     fee,
+    total,
     image,
     comment,
     emergency,
@@ -36,10 +40,12 @@ const getWalkById = async (id) => {
 const editWalk = async ({
   id,
   startDate,
+  time,
   state,
   duration,
   cost,
   fee,
+  total,
   image,
   comment,
   emergency,
@@ -50,10 +56,12 @@ const editWalk = async ({
   const updatedWalk = await Walk.update(
     {
       startDate,
+      time,
       state,
       duration,
       cost,
       fee,
+      total,
       image,
       comment,
       emergency,

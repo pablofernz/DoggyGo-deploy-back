@@ -2,18 +2,15 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_DEPLOY } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-
-const sequelize = new Sequelize(DB_DEPLOY, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  dialectOptions: {
-    ssl: {
-      require: true,
-    }
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/doggygo`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
-});
+);
 
 const basename = path.basename(__filename);
 
@@ -48,13 +45,16 @@ const { User, Walk, Dog, Review } = sequelize.models;
 // Aca vendrian las relaciones
 
 User.hasMany(Dog);
-Dog.belongsTo(User);
+Dog.belongsToMany(User, { through: "UserDogs", timestamps: false });
+
+Dog.hasOne(User);
+User.belongsToMany(Dog, { through: "UserDogs", timestamps: false });
 
 User.hasMany(Walk);
-Walk.belongsTo(User);
+Walk.belongsToMany(User, { through: "UserWalks", timestamps: false });
 
 Walk.hasMany(User);
-User.belongsTo(Walk);
+User.belongsToMany(Walk, { through: "UserWalks", timestamps: false });
 
 User.hasMany(Review);
 Review.belongsTo(User);

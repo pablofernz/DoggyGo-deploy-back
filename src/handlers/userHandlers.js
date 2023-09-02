@@ -101,7 +101,7 @@ const loginHandler = async (req, res) => {
         console.log("User", JSON.stringify(login.user, null, 2));
         console.log("Token:", login.token);
 
-        return res.status(201).json(login.user);
+        return res.status(201).json({ user: login.user, token: login.token });
     } catch (error) {
         res.status(401).json({ error: error.message });
     }

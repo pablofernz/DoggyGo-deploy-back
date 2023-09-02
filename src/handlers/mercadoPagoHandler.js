@@ -17,7 +17,7 @@ const walkPayment = (req, res) => {
       },
     ],
     back_urls: {
-      success: "http://127.0.0.1:5173",
+      success: "http://127.0.0.1:5173/home/success",
       failure: "http://127.0.0.1:5173",
       pending: "",
     },

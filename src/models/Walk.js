@@ -11,7 +11,11 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       startDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
+      time: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       state: {
@@ -30,6 +34,10 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         defaultValue: 1.5,
       },
+      total: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
       image: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -40,6 +48,10 @@ module.exports = (sequelize) => {
       },
       emergency: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      title: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
     },

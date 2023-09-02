@@ -1,50 +1,49 @@
-let passport = require('passport')    
-require("dotenv").config(); 
-const {User} = require('../models/User') 
-const { createUserController }= require('../controllers/userControllers') 
+let passport = require('passport')
+require("dotenv").config();
+const { createUserController } = require('../controllers/userControllers')
+const { User } = require('../db.js')
 // const bcrypt = require('bcrypt');
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
-}) 
+  done(null, user.id)
+})
 passport.deserializeUser((user, done) => {
-    done(null, user)
+  done(null, user)
 })
 
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-passport.use(new GoogleStrategy ({ scope: ['profile', 'email'],
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/auth/google/create"
-  }, 
- 
-  function  (accessToken, refreshToken, profile, cb) { 
-    
-   //registro usuario  
-   console.log(profile)
-   cb(null, profile)    
+passport.use(new GoogleStrategy({
+  scope: ['profile', 'email'],
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:3001/auth/google/create"
+},
 
-      // 10 number of salt rounds
+  async function (accessToken, refreshToken, profile, cb) {
 
-const user = {
-  googleId: profile.id, 
-  email: profile.emails[0].value,
-  birthdate: 'null',
-  address:'null',
-  phone:'null',
-  description:'null',
-  country:'null',
-  state:'null',
-  city:'null',
-  rol:'null', 
-  name:'null',    
- password:'null'
-}  
+    const existingUser = await User.findOne({
+      where: {
+        email: profile.emails[0].value
+      }
+    });
 
-createUserController(user)   
+    if (existingUser) {
+      // User already exists, proceed to log them in
+      cb(null, existingUser);
+    } else {
+      const user = {
+        googleId: profile.id,
+        email: profile.emails[0].value,
+        name: profile.displayName,
+      }
+
+      //registro usuario  
+      await createUserController(user)
+      cb(null, profile)
+    }
 
   }
 ));
