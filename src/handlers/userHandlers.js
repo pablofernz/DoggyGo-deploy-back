@@ -1,4 +1,4 @@
-const { getUsersByNameController, getUsersController, getUserByIdController, createUserController, updateUserController, loginController } = require('../controllers/userControllers')
+const { getUsersByNameController, getUsersController, getUserByIdController, createUserController, updateUserController, loginController, updateUserPassword,  userEmail } = require('../controllers/userControllers')
 
 //traer todos los users o traerlos por sus nombres
 const getUsersHandler = async (req, res) => {
@@ -105,7 +105,31 @@ const loginHandler = async (req, res) => {
     } catch (error) {
         res.status(401).json({ error: error.message });
     }
-};
+}; 
+
+// actualizar contraseña 
+const passwordUserHandler = async (req, res) => { 
+    const { email, newPassword} = req.body
+    try {
+       const updatePassword = await updateUserPassword(email, newPassword) 
+       res.status(200).json(updatePassword)
+    } catch (error) { 
+        res.status(400).json({ error: error.message });
+        
+    }
+} 
+// consultar contraseña 
+const handleUserByEmail = async(req, res) => {
+    try { 
+        const { email} = req.params 
+        const Email = await  userEmail(email) 
+        res.status(200).json(Email)
+        
+    } catch (error) { 
+        res.status(400).json({ error: error.message });
+        
+    }
+}
 
 
 
@@ -115,5 +139,7 @@ module.exports = {
     getUserByIdHandler,
     createUserHandler,
     updateUserHandler,
-    loginHandler
+    loginHandler,
+    passwordUserHandler, 
+    handleUserByEmail
 }

@@ -56,8 +56,30 @@ Walk.belongsToMany(User, { through: "UserWalks", timestamps: false });
 Walk.hasMany(User);
 User.belongsToMany(Walk, { through: "UserWalks", timestamps: false });
 
-User.hasMany(Review);
-Review.belongsTo(User);
+// User.hasMany(Review);
+// Review.belongsTo(User);
+
+
+User.hasMany(Review, {
+  foreignKey: 'clientId',
+  as: 'clientReviews',
+});
+Review.belongsTo(User, {
+  foreignKey: 'clientId',
+  as: 'client',
+});
+
+
+User.hasMany(Review, {
+  foreignKey: 'walkerId',
+  as: 'Reviews',
+});
+Review.belongsTo(User, {
+  foreignKey: 'walkerId',
+  as: 'walker',
+});
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

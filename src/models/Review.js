@@ -8,15 +8,19 @@ module.exports = (sequelize) => {
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
         },
+        clientName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        clientImage: {
+            type: DataTypes.STRING,
+        },
         rating: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
         },
         comment:{
             type: DataTypes.TEXT,
-            allowNull: false,
-        }
-    }, {
-        timestamps: false
+        },
     });
 };

@@ -53,7 +53,14 @@ server.get('/auth/google/create', passport.authenticate('google', { failureRedir
       expiresIn: 1 * 24 * 60 * 60 * 1000,
     });
     console.log('token', token)
-    res.redirect(`http://127.0.0.1:5173/home?token=${token}`);
+    if (req.user.dataValues.rol === 'Client') {
+      res.redirect(`http://127.0.0.1:5173/home?token=${token}`);
+    } else if (req.user.dataValues.rol === 'Admin') {
+      res.redirect(`http://127.0.0.1:5173/admin?token=${token}`);
+    } else if (req.user.dataValues.rol === 'Walker') {
+      res.redirect(`http://127.0.0.1:5173/dash?token=${token}`);
+    }
+
   } else {
 
     res.redirect(`http://127.0.0.1:5173/registro?googleId=${req.user.id}&email=${req.user.emails[0].value}&name=${req.user.displayName}`);

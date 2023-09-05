@@ -1,78 +1,58 @@
-const axios = require('axios')
-const apiKey = "sPcY6pnk-QkXhQUSJ_YeXbvKkfnLTR7BNz8IUcmEsVY3RpncCmxilSwTe3yUqSrBV0E";
-const name = "Daniel";
-const email = "danielrvt_@hotmail.com";
-
-
-const getApiToken = async () => {
-
-    let response = await axios.get(`https://www.universal-tutorial.com/api/getaccesstoken`, 
-        {headers: {
-            "Accept": "application/json",
-            "api-token": apiKey,
-            "user-email": email
-        }
-    });
-    return response.data.auth_token;
-}
-
+const axios = require("axios");
+const { API_KEY } = process.env;
 
 const getCountriesController = async () => {
-    const token = await getApiToken();
-    let response = await axios.get(`https://www.universal-tutorial.com/api/countries/`, 
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json"
-            }
-        }
-    );
-
-    let countries = await response.data.map(country => country.country_name);
-
-    return countries;
-
-}
+  var options = {
+    method: "GET",
+    url: "https://api.countrystatecity.in/v1/countries",
+    headers: {
+      "X-CSCAPI-KEY": API_KEY,
+    },
+  };
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 const getStatesController = async (country) => {
+  var options = {
+    method: "GET",
+    url: `https://api.countrystatecity.in/v1/countries/${country}/states`,
+    headers: {
+      "X-CSCAPI-KEY": API_KEY,
+    },
+  };
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-    const token = await getApiToken();
-    let response = await axios.get(`https://www.universal-tutorial.com/api/states/${country}`, 
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json"
-            }
-        }
-    );
+// `https://api.countrystatecity.in/v1/countries/${country}/states/${state}/cities`
 
-    let states = await response.data.map(state => state.state_name);
-
-    return states;
-    //return response.data;
-}
-
-const getCitiesController = async (state) => {
-
-    const token = await getApiToken();
-    let response = await axios.get(`https://www.universal-tutorial.com/api/cities/${state}`, 
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/json"
-            }
-        }
-    );
-
-    let cities = await response.data.map(city => city.city_name);
-
-    return cities;
-    //return response.data;
-}
-
+const getCitiesController = async (state, country) => {
+  var options = {
+    method: "GET",
+    url: `https://api.countrystatecity.in/v1/countries/${country}/states/${state}/cities`,
+    headers: {
+      "X-CSCAPI-KEY": API_KEY,
+    },
+  };
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
-    getCountriesController,
-    getStatesController,
-    getCitiesController,
-}
+  getCountriesController,
+  getStatesController,
+  getCitiesController,
+};

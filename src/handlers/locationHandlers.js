@@ -1,4 +1,4 @@
-// const { getCountriesController, getStatesController, getCitiesController} = require('../controllers/locationControllers')
+const { getCountriesController, getStatesController, getCitiesController} = require('../controllers/locationControllers')
 
 //traer paises
 const getCountriesHandler = async (req, res) => {
@@ -23,9 +23,9 @@ const getStatesHandler = async (req, res) => {
 
 // traer ciudades
 const getCitiesHandler = async (req, res) => {
-    const { state } = req.params;
+    const { state, country } = req.params;
     try {
-        const result = await getCitiesController(state);
+        const result = await getCitiesController(state, country);
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -33,8 +33,8 @@ const getCitiesHandler = async (req, res) => {
 }
 
 
-// module.exports = {
-//     getCountriesHandler,
-//     getStatesHandler,
-//     getCitiesHandler,
-// }
+module.exports = {
+    getCountriesHandler,
+    getStatesHandler,
+    getCitiesHandler,
+}

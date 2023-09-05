@@ -25,7 +25,24 @@ const sendEmail = async(email) =>{
     } catch (error) { 
         console.error('Error al enviar el correo:', error);
         
-    }
+    }  
+
+    const mailOption ={
+        from: 'doggygo.noreply@gmail.com', 
+        to: email, 
+        subject: '¡Recuperar contreseña',  
+        text: '¡Ingrese al siguiente',
+    }  
+
+    try { 
+        const info = await transporter.sendMail(mailOption);
+        console.log('Correo enviado:', info.messageId);
+        
+    } catch (error) { 
+        console.error('Error al enviar el correo:', error);
+        
+    } 
+    
 }   
 
 module.exports = sendEmail

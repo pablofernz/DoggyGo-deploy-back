@@ -68,7 +68,7 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM('SMALL', 'MEDIUM', "LARGE", "GIANT"),
     },
     rol: {
-      type: DataTypes.ENUM('Walker', 'Client'),
+      type: DataTypes.ENUM('Walker', 'Client', "Admin"),
       allowNull: false,
     },
     // add new googleId field
@@ -82,6 +82,9 @@ module.exports = (sequelize) => {
     isComplete: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+    ratingAvg: {
+      type: DataTypes.FLOAT,
     }
   },
     {

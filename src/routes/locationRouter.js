@@ -3,8 +3,8 @@ const { getCountriesHandler, getStatesHandler, getCitiesHandler } = require('../
 
 const locationRouter = Router();
 
-// locationRouter.get('/country', getCountriesHandler);                
-// locationRouter.get('/state/:country', getStatesHandler);              
-// locationRouter.get('/city/:state', getCitiesHandler);                 
+locationRouter.get('/countries', getCountriesHandler);                
+locationRouter.get('/state/:country', getStatesHandler);              
+locationRouter.get('/countries/:country/states/:state/cities', getCitiesHandler);                 
 
 module.exports = locationRouter;
